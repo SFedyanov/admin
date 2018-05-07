@@ -43,6 +43,7 @@ choiceAction() {
     loadDatabase)
       ACTION_VALUE='BACKUP'
       echo "loadDatabase"
+      loadDatabase
     ;;
     *)
       ACTION_VALUE='EXIT'
@@ -53,5 +54,11 @@ choiceAction() {
   esac
 }
 
-##Here Start point
+loadDatabase(){
+  echo "Run loadDatabase"
+  ./bin/loadDatabase.sh -h localhost -p 8080 -d use
+}
+
+
+##Start here
 main
