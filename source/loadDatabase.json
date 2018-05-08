@@ -1,0 +1,7 @@
+{
+  "h":{
+    "name":"hostname",
+    "default":"localhost",
+    "desccription":"database host name"
+  }
+}
