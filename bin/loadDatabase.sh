@@ -1,4 +1,13 @@
 #!/bin/bash
+#START DESCRIPTION
+#PARAMETERS:
+#-h hostname
+#HOST=$1
+#PORT=$2
+#USERNAME=$3
+#PASSWORD=$4
+#SCHEMA_NAME=$5
+#END DESCRIPTION
 
 usage() {
 echo "Usage: $0 -h <<hostname>> -p <<portnumber>> -d <<databasename>>" \
