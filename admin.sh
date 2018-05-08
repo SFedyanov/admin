@@ -4,11 +4,10 @@ trap "exit 0" TERM
 export TOP_PID=$$
 
 main() {
-  action=$(printMenu)
-  #echo $result
-  choiceAction $action
+  #ACTION=$(printMenu)
+  runAction $(printMenu)
+  #$ACTION
 }
-
 
 printMenu() {
   fileList=$(ls bin/* | xargs -n 1 basename | sed -e 's/\..*$//')
@@ -29,36 +28,22 @@ printMenu() {
   done
 }
 
-choiceAction() {
-  echo "Action... $1"
-  case $1 in
-    activateLicense)
-      ACTION_VALUE='DATABASE'
-      echo "activateLicense"
-    ;;
-    backupDatabase)
-      ACTION_VALUE='LICENSE'
-      echo "backupDatabase"
-    ;;
-    loadDatabase)
-      ACTION_VALUE='BACKUP'
-      echo "loadDatabase"
-      loadDatabase
-    ;;
-    *)
-      ACTION_VALUE='EXIT'
-      echo "Not correct choice"
-      exit 0
-    ;;
-
-  esac
+getOptionsArray() {
+  echo "$(cat source/$1.json | lib/jq 'keys' | lib/jq -r '.[]')"
 }
 
-loadDatabase(){
-  echo "Run loadDatabase"
-  ./bin/loadDatabase.sh -h localhost -p 8080 -d use
+runAction(){
+  #getOptionsArray $1
+  #options=$(cat source/$1.json | lib/jq 'keys' | lib/jq -r '.[]')
+  for opt in $(getOptionsArray $1)
+  #$options
+  do
+    v=$(cat source/$1.json | lib/jq -r .$opt.default)
+    o="$o -$opt $v"
+  done
+  echo "./bin/$1.sh$o"
+  ./bin/$1.sh$o
 }
-
 
 ##Start here
 main

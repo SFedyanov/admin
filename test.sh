@@ -108,3 +108,29 @@ createDatabase() {
   echo $ACTION
   sayHello
 }
+
+
+choiceAction() {
+  echo "Action... $1"
+  case $1 in
+    activateLicense)
+      ACTION_VALUE='DATABASE'
+      echo "activateLicense"
+    ;;
+    backupDatabase)
+      ACTION_VALUE='LICENSE'
+      echo "backupDatabase"
+    ;;
+    loadDatabase)
+      ACTION_VALUE='BACKUP'
+      echo "loadDatabase"
+      loadDatabase
+    ;;
+    *)
+      ACTION_VALUE='EXIT'
+      echo "Not correct choice"
+      exit 0
+    ;;
+
+  esac
+}
